@@ -67,7 +67,7 @@ class HashMap {
         const tmpNode = this.array[index];
 
         if (!tmpNode) return null;
-        if (!tmpNode || !tmpNode.head()) return null;
+        if (!tmpNode.head()) return null;
 
         let tmpBucket = tmpNode.head();
 
@@ -105,7 +105,7 @@ class HashMap {
         const index = Math.abs(this.hash(key) % this.capacity); 
         let bucket = this.array[index];
         if (!bucket) return false;
-        if (!bucket || !bucket.head()) return false;
+        if (!bucket.head()) return false;
 
         let indexCount = 0;
         let tmpBucket = bucket.head();

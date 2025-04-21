@@ -45,7 +45,7 @@ class HashMap {
         }
         
         
-        if (this.count > (this.loadFactor * this.capacity)){
+        if (this.count >= (this.loadFactor * this.capacity)){
             this.capacity *= 2;
             this.count = 0;
             const tmpArray = this.array;
@@ -66,6 +66,7 @@ class HashMap {
         const index = Math.abs(this.hash(key) % this.capacity); 
         const tmpNode = this.array[index];
 
+        if (!tmpNode) return null;
         if (!tmpNode || !tmpNode.head()) return null;
 
         let tmpBucket = tmpNode.head();
@@ -103,27 +104,19 @@ class HashMap {
     remove(key){
         const index = Math.abs(this.hash(key) % this.capacity); 
         let bucket = this.array[index];
-        
+        if (!bucket) return false;
         if (!bucket || !bucket.head()) return false;
 
-        let curentBucket = tmpNode.head();
-        let prevBucket;
-        while(curentBucket){
-            if (curentBucket.data[0] === key){
-                if (!prevBucket){
-                    bucket = curentBucket.next;
-                } else {
-                    curentBucket = curentBucket.next;
-                    prevBucket.next = curentBucket;
-                    this.array[index] = prevBucket;
-                }
-
+        let indexCount = 0;
+        let tmpBucket = bucket.head();
+        while(tmpBucket){
+            if (tmpBucket.data[0] === key){
+                bucket.removeAt(indexCount);
                 this.count--;
-                return true
+                return true;
             }
-
-            prevBucket = curentBucket;
-            curentBucket = curentBucket.next;
+            tmpBucket = tmpBucket.next;
+            indexCount++;
         }
         return false;
     }
@@ -141,8 +134,8 @@ class HashMap {
     keys(){
         const keys = []
         for (let bucket of this.array){
+            if (!bucket) continue;
             let tmpBucket = bucket.head();
-            if (!tmpBucket) continue;
             while(tmpBucket){
                 keys.push(tmpBucket.data[0]);
                 tmpBucket = tmpBucket.next;
@@ -154,8 +147,8 @@ class HashMap {
     values(){
         const values = []
         for (let bucket of this.array){
+            if (!bucket) continue;
             let tmpBucket = bucket.head();
-            if (!tmpBucket) continue;
             while(tmpBucket){
                 values.push(tmpBucket.data[1]);
                 tmpBucket = tmpBucket.next;
@@ -167,8 +160,8 @@ class HashMap {
     entries(){
         const entries = []
         for (let bucket of this.array){
+            if (!bucket) continue;
             let tmpBucket = bucket.head();
-            if (!tmpBucket) continue;
             while(tmpBucket){
                 entries.push(tmpBucket.data);
                 tmpBucket = tmpBucket.next;

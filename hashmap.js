@@ -1,8 +1,8 @@
-import { LinkedList } from "./linkedList";
+import { LinkedList } from "./linkedList.js";
 
 class HashMap {
     constructor(){
-        this.loadFactor = 0.8;
+        this.loadFactor = 0.75;
         this.capacity = 16;
         this.array = [];
         this.count = 0;
@@ -42,7 +42,6 @@ class HashMap {
             }
             this.array[index].append([key, value]);
             this.count++;
-            return;
         }
         
         
@@ -164,4 +163,19 @@ class HashMap {
         }
         return values;
     }
+
+    entries(){
+        const entries = []
+        for (let bucket of this.array){
+            let tmpBucket = bucket.head();
+            if (!tmpBucket) continue;
+            while(tmpBucket){
+                entries.push(tmpBucket.data);
+                tmpBucket = tmpBucket.next;
+            }
+        }
+        return entries;
+    }
 }
+
+export { HashMap }

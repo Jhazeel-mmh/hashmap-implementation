@@ -151,4 +151,17 @@ class HashMap {
         }
         return keys;
     }
+
+    values(){
+        const values = []
+        for (let bucket of this.array){
+            let tmpBucket = bucket.head();
+            if (!tmpBucket) continue;
+            while(tmpBucket){
+                values.push(tmpBucket.data[1]);
+                tmpBucket = tmpBucket.next;
+            }
+        }
+        return values;
+    }
 }

@@ -101,5 +101,31 @@ class HashMap {
         */
     }
 
-    
+    remove(key){
+        const index = Math.abs(this.hash(key) % this.capacity); 
+        let bucket = this.array[index];
+        
+        if (!bucket || !bucket.head()) return false;
+
+        let curentBucket = tmpNode.head();
+        let prevBucket;
+        while(curentBucket){
+            if (curentBucket.data[0] === key){
+                if (!prevBucket){
+                    bucket = curentBucket.next;
+                } else {
+                    curentBucket = curentBucket.next;
+                    prevBucket.next = curentBucket;
+                    this.array[index] = prevBucket;
+                }
+
+                this.count--;
+                return true
+            }
+
+            prevBucket = curentBucket;
+            curentBucket = curentBucket.next;
+        }
+        return false;
+    }
 }

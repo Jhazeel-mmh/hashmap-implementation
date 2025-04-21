@@ -132,4 +132,10 @@ class HashMap {
     length(){
         return this.count;
     }
+
+    clear(){
+        this.capacity = 16;
+        this.array = [];
+        this.count = 0;
+    }
 }

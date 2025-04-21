@@ -41,8 +41,9 @@ class HashMap {
                 tmpNode = tmpNode.next;
             }
             this.array[index].append([key, value]);
+            this.count++;
             return;
-            }
+        }
         
         
         if (this.count > (this.loadFactor * this.capacity)){
@@ -58,6 +59,25 @@ class HashMap {
                     this.set(tmpNode.data[0], tmpNode.data[1]);
                     tmpNode = tmpNode.next;
                 }
+            }
         }
-    }
-} }
+    } 
+
+    get(key){
+        const index = Math.abs(this.hash(key) % this.capacity); 
+        const tmpNode = this.array[index];
+
+        if (!tmpNode || !tmpNode.head()) return null;
+
+        let tmpBucket = tmpNode.head();
+
+        while (tmpBucket){
+            if (tmpBucket.data[0] === key){
+                return tmpBucket.data[1]
+            }
+
+            tmpBucket = tmpBucket.next;
+        }
+        return null;
+    }   
+}

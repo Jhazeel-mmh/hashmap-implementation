@@ -80,4 +80,26 @@ class HashMap {
         }
         return null;
     }   
+
+    has(key){
+        return this.get(key) !== null;
+        /*
+        const index = Math.abs(this.hash(key) % this.capacity); 
+        const tmpNode = this.array[index];
+
+        if (!tmpNode || !tmpNode.head()) return false;
+
+        let tmpBucket = tmpNode.head();
+        while (tmpBucket){
+            if (tmpBucket.data[0] === key){
+                return true;
+            }
+
+            tmpBucket = tmpBucket.next;
+        }
+        return false;
+        */
+    }
+
+    
 }

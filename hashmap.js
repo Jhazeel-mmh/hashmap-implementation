@@ -138,4 +138,17 @@ class HashMap {
         this.array = [];
         this.count = 0;
     }
+
+    keys(){
+        const keys = []
+        for (let bucket of this.array){
+            let tmpBucket = bucket.head();
+            if (!tmpBucket) continue;
+            while(tmpBucket){
+                keys.push(tmpBucket.data[0]);
+                tmpBucket = tmpBucket.next;
+            }
+        }
+        return keys;
+    }
 }
